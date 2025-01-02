@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pgzero-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pgzero-{{ version }}.tar.gz
   sha256: 8cadc020f028cbac3e0cbd3bb9311a1c045f1deedac7917ff433f986c38e6106
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - pgzrun = pgzero.runner:main
 
 requirements:
   host:
-    - python >=3.4
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.4
+    - python >={{ python_min }}
     - pygame >=2.0,<3.dev0
     - numpy
 
@@ -34,6 +34,7 @@ test:
     - pgzrun --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: http://pypi.python.org/pypi/pgzero
